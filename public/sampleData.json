@@ -1,0 +1,298 @@
+{
+  "sampleProfile": {
+    "id": "sample-1",
+    "companyName": "TechFlow AI",
+    "industry": "SaaS",
+    "stage": "idea",
+    "founderCount": 2,
+    "fundingGoal": "seed",
+    "currentState": "concept",
+    "goals": ["build_mvp", "raise_funding", "get_first_customers"],
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  "tasks": [
+    {
+      "id": "task-1",
+      "week": 1,
+      "title": "Define your core value proposition",
+      "description": "Clearly articulate what problem you're solving and for whom. Write a one-sentence pitch that captures your unique value.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 8,
+      "resources": ["playbook-1"]
+    },
+    {
+      "id": "task-2",
+      "week": 1,
+      "title": "Research competitors and market landscape",
+      "description": "Identify 5-10 competitors or similar solutions. Analyze their strengths, weaknesses, and market positioning.",
+      "category": "marketing",
+      "priority": "high",
+      "estimatedHours": 12,
+      "resources": ["playbook-2"]
+    },
+    {
+      "id": "task-3",
+      "week": 2,
+      "title": "Create initial user personas",
+      "description": "Develop 2-3 detailed user personas representing your target customers. Include demographics, pain points, and goals.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 6,
+      "dependencies": ["task-1"]
+    },
+    {
+      "id": "task-4",
+      "week": 2,
+      "title": "Choose business entity structure",
+      "description": "Decide between LLC, C-Corp, or S-Corp based on your funding goals and tax situation. Consult with a lawyer if needed.",
+      "category": "legal",
+      "priority": "high",
+      "estimatedHours": 4,
+      "resources": ["template-1", "playbook-3"]
+    },
+    {
+      "id": "task-5",
+      "week": 3,
+      "title": "Register your business entity",
+      "description": "File formation documents with your state. Obtain EIN from IRS. Set up business bank account.",
+      "category": "legal",
+      "priority": "high",
+      "estimatedHours": 8,
+      "dependencies": ["task-4"],
+      "resources": ["template-1"]
+    },
+    {
+      "id": "task-6",
+      "week": 3,
+      "title": "Draft founders' agreement",
+      "description": "Define equity split, vesting schedules, roles, and decision-making processes among co-founders.",
+      "category": "legal",
+      "priority": "high",
+      "estimatedHours": 10,
+      "resources": ["template-2", "playbook-4"]
+    },
+    {
+      "id": "task-7",
+      "week": 4,
+      "title": "Create wireframes for MVP",
+      "description": "Design low-fidelity wireframes for core user flows. Focus on essential features only.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 16,
+      "dependencies": ["task-3"]
+    },
+    {
+      "id": "task-8",
+      "week": 5,
+      "title": "Set up tech stack and development environment",
+      "description": "Choose your technology stack. Set up version control, CI/CD pipelines, and development tools.",
+      "category": "operations",
+      "priority": "high",
+      "estimatedHours": 12
+    },
+    {
+      "id": "task-9",
+      "week": 6,
+      "title": "Build MVP core features",
+      "description": "Develop the minimum viable version focusing on your core value proposition. Aim for functional, not perfect.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 80,
+      "dependencies": ["task-7", "task-8"]
+    },
+    {
+      "id": "task-10",
+      "week": 8,
+      "title": "Create landing page and wait list",
+      "description": "Build a simple landing page explaining your product. Add email capture for early access list.",
+      "category": "marketing",
+      "priority": "high",
+      "estimatedHours": 16
+    },
+    {
+      "id": "task-11",
+      "week": 9,
+      "title": "Conduct user testing with 10+ people",
+      "description": "Get your MVP in front of real users. Observe their behavior, collect feedback, and identify pain points.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 20,
+      "dependencies": ["task-9"]
+    },
+    {
+      "id": "task-12",
+      "week": 10,
+      "title": "Implement SAFE or convertible note template",
+      "description": "Prepare standard fundraising documents. Understand the terms and implications for future rounds.",
+      "category": "fundraising",
+      "priority": "medium",
+      "estimatedHours": 8,
+      "resources": ["template-3", "playbook-5"]
+    },
+    {
+      "id": "task-13",
+      "week": 10,
+      "title": "Create pitch deck",
+      "description": "Build a 10-15 slide deck covering problem, solution, market, traction, team, and ask.",
+      "category": "fundraising",
+      "priority": "high",
+      "estimatedHours": 24,
+      "resources": ["playbook-6"]
+    },
+    {
+      "id": "task-14",
+      "week": 11,
+      "title": "Iterate on MVP based on feedback",
+      "description": "Make key improvements based on user testing insights. Focus on the biggest pain points.",
+      "category": "product",
+      "priority": "high",
+      "estimatedHours": 40,
+      "dependencies": ["task-11"]
+    },
+    {
+      "id": "task-15",
+      "week": 12,
+      "title": "Launch beta to early users",
+      "description": "Release your refined MVP to your waitlist. Set up analytics to track key metrics.",
+      "category": "marketing",
+      "priority": "high",
+      "estimatedHours": 16,
+      "dependencies": ["task-14"]
+    }
+  ],
+  "templates": [
+    {
+      "id": "template-1",
+      "title": "Certificate of Incorporation",
+      "description": "Standard Delaware C-Corp formation document template",
+      "category": "legal",
+      "fileType": "docx",
+      "content": "CERTIFICATE OF INCORPORATION\nOF\n[COMPANY NAME], INC.\n\nThe undersigned, in order to form a corporation for the purposes hereinafter stated, under and pursuant to the provisions of the General Corporation Law of the State of Delaware, does hereby certify:\n\nFIRST: The name of the corporation is [COMPANY NAME], Inc.\n\nSECOND: The address of the registered office of the corporation in the State of Delaware is [ADDRESS], and the name of its registered agent at such address is [AGENT NAME].\n\nTHIRD: The purpose of the corporation is to engage in any lawful act or activity for which corporations may be organized under the General Corporation Law of Delaware.\n\nFOURTH: The total number of shares of stock which the corporation shall have authority to issue is [NUMBER] shares of Common Stock, each with a par value of $0.0001 per share.\n\nFIFTH: The name and mailing address of the incorporator is:\n[INCORPORATOR NAME]\n[INCORPORATOR ADDRESS]\n\nSIXTH: The corporation is to have perpetual existence.\n\nIN WITNESS WHEREOF, the undersigned has executed this Certificate of Incorporation this [DAY] day of [MONTH], [YEAR].\n\n_______________________\n[INCORPORATOR NAME]\nIncorporator"
+    },
+    {
+      "id": "template-2",
+      "title": "Founders' Agreement",
+      "description": "Comprehensive founders agreement with equity split and vesting",
+      "category": "legal",
+      "fileType": "docx",
+      "content": "FOUNDERS' AGREEMENT\n\nThis Founders' Agreement (\"Agreement\") is entered into as of [DATE] by and between the undersigned founders (\"Founders\") of [COMPANY NAME], Inc. (the \"Company\").\n\n1. EQUITY ALLOCATION\nThe Founders agree to the following initial equity split:\n- [FOUNDER 1 NAME]: [PERCENTAGE]%\n- [FOUNDER 2 NAME]: [PERCENTAGE]%\n\n2. VESTING SCHEDULE\nAll founder shares shall vest over a four (4) year period with a one (1) year cliff. If a Founder's relationship with the Company terminates before the cliff date, all unvested shares shall be forfeited.\n\n3. ROLES AND RESPONSIBILITIES\n[FOUNDER 1 NAME] shall serve as [TITLE] and be responsible for [RESPONSIBILITIES]\n[FOUNDER 2 NAME] shall serve as [TITLE] and be responsible for [RESPONSIBILITIES]\n\n4. DECISION MAKING\nMajor decisions requiring unanimous consent include:\n- Raising investment or taking on debt\n- Selling the company or substantial assets\n- Hiring/firing C-level executives\n- Changing the company's core business model\n\n5. INTELLECTUAL PROPERTY\nAll Founders assign all intellectual property created in connection with the Company to the Company.\n\n6. NON-COMPETE\nDuring their involvement with the Company and for [TIME PERIOD] thereafter, Founders agree not to compete directly with the Company.\n\n7. DISPUTE RESOLUTION\nAny disputes shall be resolved through mediation, and if necessary, binding arbitration.\n\nIN WITNESS WHEREOF, the Founders have executed this Agreement as of the date first written above.\n\n_______________________  _______________________\n[FOUNDER 1 NAME]        [FOUNDER 2 NAME]"
+    },
+    {
+      "id": "template-3",
+      "title": "SAFE Agreement (Simple Agreement for Future Equity)",
+      "description": "Standard Y Combinator SAFE template for early-stage fundraising",
+      "category": "legal",
+      "fileType": "docx",
+      "content": "SAFE (Simple Agreement for Future Equity)\n\nTHIS CERTIFIES THAT in exchange for the payment by [INVESTOR NAME] (the \"Investor\") of $[AMOUNT] (the \"Purchase Amount\") on or about [DATE], [COMPANY NAME], Inc., a Delaware corporation (the \"Company\"), issues to the Investor the right to certain shares of the Company's Capital Stock, subject to the terms described below.\n\nThis Safe is one of the forms available at http://ycombinator.com/documents and the Company and the Investor agree that neither one has modified the form, except to fill in blanks and bracketed terms.\n\n1. Events\n\n(a) Equity Financing. If there is an Equity Financing before the termination of this Safe, on the initial closing of such Equity Financing, this Safe will automatically convert into the number of shares of Safe Preferred Stock equal to the Purchase Amount divided by the Conversion Price.\n\nThe \"Conversion Price\" is either:\n(1) the Safe Price (if this Safe has a Valuation Cap); or\n(2) the Discount Price (if this Safe has a Discount Rate); whichever calculation results in a greater number of shares of Safe Preferred Stock.\n\nValuation Cap: $[AMOUNT]\nDiscount Rate: [PERCENTAGE]%\n\n(b) Liquidity Event. If there is a Liquidity Event before the termination of this Safe, this Safe will automatically be entitled to receive a portion of Proceeds equal to the Purchase Amount.\n\n(c) Dissolution Event. If there is a Dissolution Event before this Safe terminates, the Investor will automatically be entitled to receive a portion of Proceeds equal to the Purchase Amount.\n\n2. Company Representations\n\n(a) The Company is a corporation duly organized, validly existing and in good standing under the laws of the State of Delaware.\n\n(b) The execution, delivery and performance by the Company of this Safe is within the power of the Company and has been duly authorized.\n\nIN WITNESS WHEREOF, the undersigned have caused this Safe to be duly executed and delivered.\n\n[COMPANY NAME], INC.\n\nBy: _______________________\nName: [FOUNDER NAME]\nTitle: CEO\n\nINVESTOR:\n\n_______________________\n[INVESTOR NAME]"
+    },
+    {
+      "id": "template-4",
+      "title": "Employee Offer Letter",
+      "description": "Standard employment offer letter template",
+      "category": "legal",
+      "fileType": "docx",
+      "content": "EMPLOYMENT OFFER LETTER\n\n[DATE]\n\nDear [CANDIDATE NAME],\n\nWe are pleased to offer you the position of [TITLE] at [COMPANY NAME], Inc. (the \"Company\"). We believe your skills and experience will be a valuable addition to our team.\n\nPosition: [TITLE]\nStart Date: [DATE]\nSalary: $[AMOUNT] per year, paid [FREQUENCY]\nEquity: [NUMBER] stock options, subject to vesting schedule\nBenefits: [BENEFITS DESCRIPTION]\n\nReporting: You will report directly to [MANAGER NAME], [MANAGER TITLE].\n\nThis offer is contingent upon:\n- Successful completion of a background check\n- Proof of your eligibility to work in the United States\n- Signing the Company's standard Confidential Information and Invention Assignment Agreement\n\nYour employment with the Company will be \"at-will,\" meaning that either you or the Company may terminate the employment relationship at any time, with or without cause or notice.\n\nTo accept this offer, please sign and return this letter by [DATE].\n\nWe look forward to welcoming you to the team!\n\nSincerely,\n\n_______________________\n[FOUNDER NAME]\n[TITLE]\n\nACCEPTANCE:\n\nI accept the above offer of employment and confirm my start date of [DATE].\n\n_______________________  _______________________\n[CANDIDATE NAME]         Date"
+    },
+    {
+      "id": "template-5",
+      "title": "NDA (Non-Disclosure Agreement)",
+      "description": "Mutual non-disclosure agreement for business discussions",
+      "category": "legal",
+      "fileType": "docx",
+      "content": "MUTUAL NON-DISCLOSURE AGREEMENT\n\nThis Mutual Non-Disclosure Agreement (\"Agreement\") is entered into as of [DATE] by and between [COMPANY NAME], Inc. (\"Company\") and [OTHER PARTY NAME] (\"Recipient\").\n\n1. DEFINITION OF CONFIDENTIAL INFORMATION\n\"Confidential Information\" means any information disclosed by one party to the other party, either directly or indirectly, in writing, orally or by inspection of tangible objects, including without limitation business plans, technical data, trade secrets, know-how, research, product plans, products, services, customers, customer lists, markets, software, developments, inventions, processes, formulas, technology, designs, drawings, engineering, hardware configuration information, marketing, finances or other business information.\n\n2. NON-USE AND NON-DISCLOSURE\nRecipient agrees:\n(a) Not to use Confidential Information for any purpose except to evaluate and engage in discussions concerning a potential business relationship between the parties.\n(b) Not to disclose Confidential Information to third parties without the prior written consent of the disclosing party.\n\n3. EXCEPTIONS\nConfidential Information shall not include information that:\n(a) Is or becomes publicly available without breach of this Agreement\n(b) Was rightfully in Recipient's possession prior to disclosure\n(c) Is independently developed by Recipient without use of Confidential Information\n(d) Is rightfully obtained by Recipient from a third party without breach\n\n4. TERM\nThis Agreement shall remain in effect for [TIME PERIOD] from the date of disclosure.\n\n5. RETURN OF MATERIALS\nUpon request, Recipient shall promptly return or destroy all Confidential Information received.\n\nIN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above.\n\n[COMPANY NAME], INC.          [OTHER PARTY NAME]\n\nBy: _______________________   By: _______________________\nName:                         Name:\nTitle:                        Title:"
+    }
+  ],
+  "playbook": [
+    {
+      "id": "playbook-1",
+      "title": "How to Craft a Compelling Value Proposition",
+      "slug": "craft-value-proposition",
+      "category": "Product",
+      "readTime": 8,
+      "excerpt": "Learn how to articulate your startup's unique value in a way that resonates with customers and investors.",
+      "tags": ["product-market-fit", "strategy", "positioning"],
+      "content": "# How to Craft a Compelling Value Proposition\n\nYour value proposition is the foundation of your startup. It answers the fundamental question: why should someone choose your solution over alternatives?\n\n## The Value Proposition Canvas\n\nStart with three key elements:\n\n1. **Customer Jobs**: What is your customer trying to accomplish?\n2. **Pains**: What frustrates them about current solutions?\n3. **Gains**: What would make their life significantly better?\n\n## The One-Sentence Test\n\nYour value proposition should fit into this template:\n\n*\"We help [TARGET CUSTOMER] [ACHIEVE OUTCOME] by [UNIQUE APPROACH].\"*\n\nExample: \"We help busy professionals stay organized by automatically categorizing their tasks using AI.\"\n\n## Common Mistakes to Avoid\n\n- Being too vague or generic\n- Focusing on features instead of benefits\n- Trying to appeal to everyone\n- Using jargon or technical language\n\n## Testing Your Value Proposition\n\nValidate your value prop by:\n- Running it by 10-20 potential customers\n- A/B testing different versions on your landing page\n- Measuring conversion rates and engagement\n\nRemember: your value proposition will evolve. Start with your best hypothesis and refine based on real customer feedback."
+    },
+    {
+      "id": "playbook-2",
+      "title": "Competitive Analysis: Know Your Market",
+      "slug": "competitive-analysis",
+      "category": "Strategy",
+      "readTime": 10,
+      "excerpt": "A step-by-step guide to understanding your competition and finding your unique positioning.",
+      "tags": ["competition", "market-research", "strategy"],
+      "content": "# Competitive Analysis: Know Your Market\n\nUnderstanding your competitive landscape is crucial for positioning your startup effectively.\n\n## Step 1: Identify Your Competitors\n\nLook for:\n- **Direct competitors**: Companies solving the same problem\n- **Indirect competitors**: Alternative solutions to the same problem\n- **Potential future competitors**: Adjacent players who could enter your space\n\n## Step 2: Analyze Key Dimensions\n\nFor each competitor, evaluate:\n\n### Product/Service\n- Core features and capabilities\n- User experience and design\n- Technology stack\n- Innovation rate\n\n### Business Model\n- Pricing strategy\n- Revenue streams\n- Unit economics\n\n### Market Position\n- Target customer segments\n- Market share\n- Brand perception\n- Growth trajectory\n\n### Strengths & Weaknesses\n- What do they do exceptionally well?\n- Where do they fall short?\n- What are customers complaining about?\n\n## Step 3: Find Your White Space\n\nIdentify opportunities where:\n- Customer needs are underserved\n- Competitors have consistent weaknesses\n- You have unique advantages or expertise\n\n## Tools and Resources\n\n- Product Hunt for discovering new competitors\n- G2 and Capterra for customer reviews\n- SimilarWeb for traffic analysis\n- LinkedIn for team size and hiring trends\n\n## Create a Competitive Matrix\n\nBuild a simple spreadsheet comparing:\n- Feature set\n- Pricing\n- Target market\n- Differentiation\n\nUpdate this quarterly as the market evolves."
+    },
+    {
+      "id": "playbook-3",
+      "title": "Choosing the Right Business Entity",
+      "slug": "choosing-business-entity",
+      "category": "Legal",
+      "readTime": 12,
+      "excerpt": "Understand the differences between LLC, C-Corp, and S-Corp to make the right choice for your startup.",
+      "tags": ["legal", "incorporation", "business-structure"],
+      "content": "# Choosing the Right Business Entity\n\nSelecting the right legal structure is one of your first major decisions as a founder.\n\n## Common Entity Types\n\n### C-Corporation\n\n**Best for**: Venture-backed startups planning to raise significant capital\n\n**Pros**:\n- Unlimited shareholders\n- Can issue preferred stock\n- Attractive to VCs and institutional investors\n- Stock options and equity grants are straightforward\n\n**Cons**:\n- Double taxation (corporate + individual)\n- More complex compliance requirements\n- Higher formation and maintenance costs\n\n### S-Corporation\n\n**Best for**: Small businesses with U.S.-based founders not planning to raise VC\n\n**Pros**:\n- Pass-through taxation (no double taxation)\n- Limited liability protection\n- Can still issue stock\n\n**Cons**:\n- Limited to 100 shareholders\n- All shareholders must be U.S. citizens/residents\n- Cannot have multiple share classes\n- Not compatible with VC funding\n\n### LLC (Limited Liability Company)\n\n**Best for**: Service businesses, consultancies, small teams\n\n**Pros**:\n- Flexible management structure\n- Pass-through taxation\n- Simpler compliance than corporations\n\n**Cons**:\n- Cannot issue stock options in the traditional sense\n- Less attractive to investors\n- Potential self-employment taxes\n\n## The Startup Default: Delaware C-Corp\n\nMost venture-backed startups choose Delaware C-Corp because:\n- Well-established corporate law\n- Investor familiarity and preference\n- Business-friendly court system\n- Anonymity for shareholders\n\n## When to Incorporate\n\nConsider incorporating when:\n- You're ready to raise external funding\n- You have co-founders and need formal equity agreements\n- You're generating revenue\n- You want liability protection\n\n## Next Steps\n\n1. Consult with a startup lawyer (budget $1,500-$3,000)\n2. Use a formation service (Clerky, Stripe Atlas) for $500-$1,000\n3. File with your state\n4. Obtain an EIN from the IRS\n5. Set up a business bank account\n\nRemember: you can always convert from an LLC to a C-Corp later, but it's easier to start with the right structure."
+    },
+    {
+      "id": "playbook-4",
+      "title": "Founders' Agreement: Avoiding Co-Founder Conflicts",
+      "slug": "founders-agreement",
+      "category": "Legal",
+      "readTime": 15,
+      "excerpt": "Essential elements of a solid founders' agreement to prevent future disputes and ensure alignment.",
+      "tags": ["legal", "co-founders", "equity", "vesting"],
+      "content": "# Founders' Agreement: Avoiding Co-Founder Conflicts\n\nCo-founder disputes are one of the top reasons startups fail. A solid founders' agreement prevents most issues.\n\n## Critical Elements\n\n### 1. Equity Split\n\n**Equal vs. Unequal**\n- Equal splits work when contributions are truly balanced\n- Unequal splits reflect different levels of commitment, expertise, or initial contributions\n\n**Dynamic Equity Models**\nSome teams use formulas that adjust equity based on ongoing contributions.\n\n### 2. Vesting Schedule\n\n**Standard**: 4-year vesting with 1-year cliff\n- After 1 year, 25% of shares vest\n- Remaining 75% vests monthly over 3 years\n\n**Why Vesting Matters**\nProtects the company if a founder leaves early. Without vesting, a departing founder keeps 100% of their equity.\n\n### 3. Roles and Responsibilities\n\nClearly define:\n- Who is CEO?\n- Who handles what functional areas?\n- Expected time commitment\n- Compensation (if any)\n\n### 4. Decision-Making Process\n\n**Unanimous Consent Required For**:\n- Raising funding\n- Selling the company\n- Hiring/firing executives\n- Major pivots\n- Taking on debt over $X\n\n**Majority Vote For**:\n- Day-to-day operations\n- Hiring/firing non-executive employees\n- Product decisions\n\n### 5. Intellectual Property Assignment\n\nAll IP created by founders must be assigned to the company. This includes:\n- Code\n- Designs\n- Business processes\n- Trade secrets\n\n### 6. What Happens If Someone Leaves?\n\n**Voluntary Departure**\n- Unvested shares are forfeited\n- Vested shares remain (or buyback option)\n\n**Termination for Cause**\n- Definition of \"cause\"\n- Buyback rights at fair market value\n\n**Death or Disability**\n- Acceleration of vesting?\n- Buyback arrangements\n\n### 7. Non-Compete and Non-Solicit\n\n**Non-Compete**\n- Reasonable duration (typically 1-2 years)\n- Geographic scope\n- Industry specificity\n\n**Non-Solicit**\n- Prevents poaching employees\n- Protects customer relationships\n\n## Common Pitfalls\n\n1. **Waiting too long** - Have this conversation in the first month\n2. **Avoiding difficult topics** - Address worst-case scenarios upfront\n3. **Verbal agreements** - Always put it in writing\n4. **Not using vesting** - This is non-negotiable\n5. **Ignoring tax implications** - File 83(b) elections within 30 days\n\n## The Conversation Framework\n\nSchedule a dedicated session to discuss:\n- Individual motivations and goals\n- Expected time commitments\n- Risk tolerance\n- Exit expectations\n- Worst-case scenarios\n\n## Getting Help\n\nInvest in a good startup lawyer. Budget $2,000-$5,000 for:\n- Founders' agreement\n- Stock purchase agreements\n- IP assignments\n- 83(b) election filings\n\nThis is money well spent to avoid six-figure legal fees later."
+    },
+    {
+      "id": "playbook-5",
+      "title": "SAFE vs. Priced Round: Which is Right for You?",
+      "slug": "safe-vs-priced-round",
+      "category": "Fundraising",
+      "readTime": 10,
+      "excerpt": "Understand the differences between SAFE notes and priced equity rounds for your seed funding.",
+      "tags": ["fundraising", "safe", "equity", "valuation"],
+      "content": "# SAFE vs. Priced Round: Which is Right for You?\n\nWhen raising your first capital, you'll likely choose between a SAFE and a priced equity round.\n\n## What is a SAFE?\n\nSAFE (Simple Agreement for Future Equity) is an investment contract that converts to equity in a future priced round.\n\n**Created by**: Y Combinator in 2013\n**Purpose**: Simplify early-stage fundraising\n\n### SAFE Mechanics\n\n**Key Terms**:\n- **Valuation Cap**: Maximum valuation at which the SAFE converts\n- **Discount**: Percentage discount on the next round's price (typically 15-20%)\n- **MFN (Most Favored Nation)**: Right to same terms as future SAFEs\n\n**Example**:\n- You raise $500K on a SAFE with a $5M cap\n- Later, you raise a Series A at a $10M valuation\n- SAFE investors convert at the $5M cap (better terms)\n- They get 2x the shares compared to Series A investors\n\n## SAFE Advantages\n\n1. **Speed**: Close in days, not weeks\n2. **Lower legal costs**: $2K vs. $15K+ for priced round\n3. **No valuation needed**: Defer valuation discussion\n4. **No board seats**: Simpler governance initially\n5. **Flexible**: Add investors as you find them\n\n## SAFE Disadvantages\n\n1. **Dilution uncertainty**: Don't know exact ownership until conversion\n2. **Investor protection**: Fewer rights than priced equity\n3. **Multiple SAFEs complexity**: Different terms can create messy cap tables\n4. **Not equity**: Some investors prefer actual ownership\n\n## Priced Equity Rounds\n\nIn a priced round, you set a specific valuation and sell a percentage of your company.\n\n**Example**:\n- $5M pre-money valuation\n- Raise $1M\n- Post-money: $6M\n- Investors own: 16.7%\n\n## Priced Round Advantages\n\n1. **Clear ownership**: Everyone knows exact percentages\n2. **Investor protections**: Liquidation preferences, pro-rata rights, etc.\n3. **Board representation**: More formal governance\n4. **Psychological milestone**: Validates your valuation\n\n## Priced Round Disadvantages\n\n1. **Time-consuming**: 6-12 weeks to close\n2. **Expensive**: $15K-$50K in legal fees\n3. **Valuation pressure**: Must agree on a number\n4. **All-or-nothing**: Usually need to close everyone at once\n\n## When to Use Each\n\n### Use a SAFE When:\n- Raising less than $2M\n- Pre-product or pre-traction\n- Want to move quickly\n- First-time founders\n- Angels and small funds\n\n### Use a Priced Round When:\n- Raising $2M+\n- Strong traction and metrics\n- Institutional investors requiring it\n- Clear valuation comps\n- Ready for board structure\n\n## SAFE Best Practices\n\n1. **Use standard Y Combinator templates** - Don't customize\n2. **Consistent terms** - Same cap and discount for all investors\n3. **Reasonable caps** - Not too high (dilution risk for founders)\n4. **Track carefully** - Maintain a detailed cap table\n5. **Plan for conversion** - Understand the math before Series A\n\n## Avoid SAFE Traps\n\n**Too Much SAFE Money**\nRaising multiple SAFE rounds at increasing caps can create:\n- Massive dilution at conversion\n- Messy cap tables\n- Series A investor concerns\n\n**Rule of Thumb**: Don't raise more than $2M on SAFEs\n\n**No Cap or Discount**\nSome SAFEs have neither - avoid these unless you're desperate. Investors should take some risk for early support.\n\n## The Bottom Line\n\nFor most seed-stage startups:\n- **$0-500K**: SAFEs are perfect\n- **$500K-$2M**: SAFEs still make sense\n- **$2M+**: Consider a priced round\n\nWhen in doubt, talk to your lawyer and other founders who've been through it."
+    },
+    {
+      "id": "playbook-6",
+      "title": "The Perfect Pitch Deck: What Investors Want to See",
+      "slug": "perfect-pitch-deck",
+      "category": "Fundraising",
+      "readTime": 12,
+      "excerpt": "Learn how to create a compelling pitch deck that captures investor attention and wins meetings.",
+      "tags": ["fundraising", "pitch-deck", "investors", "storytelling"],
+      "content": "# The Perfect Pitch Deck: What Investors Want to See\n\nYour pitch deck is often your first impression with investors. Here's how to make it count.\n\n## The 10-Slide Formula\n\n### 1. Cover Slide\n- Company name and tagline\n- Your name and title\n- Contact information\n- Optional: impressive logo or visual\n\n### 2. Problem\n- What painful problem are you solving?\n- Show the current broken solution\n- Make it visceral and relatable\n\n**Do**: \"Sales teams waste 20 hours/week on manual data entry\"\n**Don't**: \"There's inefficiency in the sales process\"\n\n### 3. Solution\n- Your product in 1-2 sentences\n- Show screenshots or demo\n- Focus on the \"aha\" moment\n\n### 4. Why Now?\n- What's changed that makes this possible?\n- Market trends, technology shifts, behavior changes\n- Creates urgency and reduces timing risk\n\n### 5. Market Size\n- TAM (Total Addressable Market)\n- SAM (Serviceable Addressable Market)\n- SOM (Serviceable Obtainable Market)\n\n**Show your work**: Bottom-up calculation is more credible than top-down\n\n### 6. Product/Demo\n- Key features and user experience\n- Show, don't tell\n- Focus on value, not features\n\n### 7. Traction\n- Revenue growth\n- User metrics\n- Key partnerships\n- Press/awards\n\n**Remember**: Early stage? Show momentum, not just absolute numbers\n\n### 8. Business Model\n- How do you make money?\n- Pricing strategy\n- Unit economics (CAC, LTV)\n- Path to profitability\n\n### 9. Competition\n- Competitive landscape\n- Your unique differentiation\n- Avoid saying \"no competitors\"\n\n**Best format**: 2x2 matrix showing your unique positioning\n\n### 10. Team\n- Founders and key employees\n- Relevant experience and expertise\n- Why are you uniquely qualified?\n- Show complementary skills\n\n### 11. Ask\n- How much are you raising?\n- What will you use it for?\n- What milestones will you hit?\n- What's next after this round?\n\n## Design Principles\n\n### Visual Hierarchy\n- One main point per slide\n- Large fonts (30pt minimum)\n- Minimal text (headlines, not paragraphs)\n- High-quality images\n\n### Consistency\n- Use a template (Pitch, Canva, or hire a designer)\n- Consistent fonts and colors\n- Professional, not gimmicky\n\n### Data Visualization\n- Charts over tables\n- Show trends, not just numbers\n- Make growth obvious\n\n## Common Mistakes\n\n1. **Too much text** - If you need paragraphs, create a separate \"reading deck\"\n2. **Unclear ask** - Be specific about round size and use of funds\n3. **Boring problem** - Make investors feel the pain\n4. **No differentiation** - Why you, why now?\n5. **Weak team slide** - Investors bet on people\n6. **Unrealistic projections** - Show ambition but stay credible\n\n## Two Versions\n\n### Presentation Deck (10-12 slides)\n- Visuals-heavy\n- Minimal text\n- For live pitches\n\n### Reading Deck (15-20 slides)\n- More detail\n- Can stand alone\n- For email sends\n\n## The Appendix\n\nInclude backup slides for Q&A:\n- Detailed financials\n- Go-to-market strategy\n- Product roadmap\n- Additional team bios\n- Press and testimonials\n\n## Storytelling Framework\n\nGreat pitches follow this narrative arc:\n\n1. **Setup**: Here's the world as it is (problem)\n2. **Conflict**: This is broken and painful\n3. **Resolution**: We've built the solution\n4. **Proof**: Here's evidence it's working\n5. **Vision**: Here's where we're going\n6. **Ask**: Join us on this journey\n\n## Final Checks\n\n- [ ] Could someone understand your company from the deck alone?\n- [ ] Is there one clear point per slide?\n- [ ] Have you shown (not told) wherever possible?\n- [ ] Does your traction slide make investors excited?\n- [ ] Is your ask clear and specific?\n- [ ] Would YOU be excited to invest based on this deck?\n\n## Resources\n\n- Study successful pitch decks: Airbnb, Uber, LinkedIn\n- Use: pitch.com, beautiful.ai, or Canva for templates\n- Get feedback from: advisors, other founders, angels\n\nRemember: Your deck is a conversation starter, not a comprehensive business plan. Keep it focused, visual, and compelling."
+    }
+  ],
+  "blueprintRules": [
+    {
+      "condition": {
+        "stage": ["idea", "concept"],
+        "goals": ["build_mvp"]
+      },
+      "tasks": ["task-1", "task-2", "task-3", "task-7", "task-8", "task-9", "task-11", "task-14", "task-15"]
+    },
+    {
+      "condition": {
+        "stage": ["idea", "concept"],
+        "goals": ["raise_funding"]
+      },
+      "tasks": ["task-1", "task-4", "task-5", "task-6", "task-12", "task-13"]
+    },
+    {
+      "condition": {
+        "stage": ["idea", "concept"],
+        "goals": ["get_first_customers"]
+      },
+      "tasks": ["task-1", "task-2", "task-3", "task-10", "task-11", "task-15"]
+    },
+    {
+      "condition": {
+        "industry": ["SaaS"],
+        "fundingGoal": ["seed", "series-a"]
+      },
+      "tasks": ["task-4", "task-5", "task-6", "task-12", "task-13"]
+    }
+  ]
+}
