@@ -1,84 +1,180 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Filter } from 'lucide-react';
-import Header from '@/components/Header';
-import TaskCard from '@/components/TaskCard';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { getProfile } from '@/lib/localStorage';
-import { getAllTasks } from '@/lib/mockApi';
-import { Task } from '@/lib/types';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Filter, Loader2 } from "lucide-react";
+import Header from "@/components/Header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useSession } from "@/lib/auth-client";
+import { toast } from "sonner";
+
+interface Task {
+  task: string;
+  priority: "high" | "medium" | "low";
+  completed: boolean;
+  description: string;
+}
 
 export default function TasksPage() {
   const router = useRouter();
+  const { data: session, isPending } = useSession();
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
-  const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [priorityFilter, setPriorityFilter] = useState<string>('all');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [startupId, setStartupId] = useState<number | null>(null);
+  const [priorityFilter, setPriorityFilter] = useState<string>("all");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
 
   useEffect(() => {
-    const loadData = async () => {
-      const profile = getProfile();
-      if (!profile) {
-        router.push('/onboarding');
-        return;
+    if (!isPending && !session?.user) {
+      router.push("/login");
+      return;
+    }
+
+    if (session?.user) {
+      loadTasks();
+    }
+  }, [session, isPending, router]);
+
+  const loadTasks = async () => {
+    try {
+      const token = localStorage.getItem("bearer_token");
+
+      // Get startup first
+      const startupsResponse = await fetch("/api/startups", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (startupsResponse.ok) {
+        const startups = await startupsResponse.json();
+        if (startups.length === 0) {
+          router.push("/onboarding");
+          return;
+        }
+
+        const startupIdValue = startups[0].id;
+        setStartupId(startupIdValue);
+
+        // Get blueprint with tasks
+        const blueprintResponse = await fetch(`/api/blueprints/${startupIdValue}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (blueprintResponse.ok) {
+          const blueprint = await blueprintResponse.json();
+          const legalTasks = blueprint.content?.legalTasks || [];
+          setTasks(legalTasks);
+          setFilteredTasks(legalTasks);
+        } else if (blueprintResponse.status === 404) {
+          toast.error("No blueprint found. Please complete onboarding first.");
+          router.push("/onboarding");
+        }
       }
-
-      const allTasks = await getAllTasks();
-      setTasks(allTasks);
-      setFilteredTasks(allTasks);
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+      toast.error("Failed to load tasks");
+    } finally {
       setLoading(false);
-    };
-
-    loadData();
-  }, [router]);
+    }
+  };
 
   useEffect(() => {
     let filtered = [...tasks];
 
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(t => t.category === categoryFilter);
+    if (priorityFilter !== "all") {
+      filtered = filtered.filter((t) => t.priority === priorityFilter);
     }
 
-    if (priorityFilter !== 'all') {
-      filtered = filtered.filter(t => t.priority === priorityFilter);
-    }
-
-    if (statusFilter === 'completed') {
-      filtered = filtered.filter(t => t.completed);
-    } else if (statusFilter === 'pending') {
-      filtered = filtered.filter(t => !t.completed);
+    if (statusFilter === "completed") {
+      filtered = filtered.filter((t) => t.completed);
+    } else if (statusFilter === "pending") {
+      filtered = filtered.filter((t) => !t.completed);
     }
 
     setFilteredTasks(filtered);
-  }, [categoryFilter, priorityFilter, statusFilter, tasks]);
+  }, [priorityFilter, statusFilter, tasks]);
 
-  const handleTaskStatusChange = async () => {
-    const allTasks = await getAllTasks();
-    setTasks(allTasks);
+  const handleTaskToggle = async (taskIndex: number) => {
+    if (!startupId) return;
+
+    const updatedTasks = [...tasks];
+    const newCompletedState = !updatedTasks[taskIndex].completed;
+    updatedTasks[taskIndex].completed = newCompletedState;
+    setTasks(updatedTasks);
+
+    try {
+      const token = localStorage.getItem("bearer_token");
+      const response = await fetch(`/api/blueprints/${startupId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          content: {
+            legalTasks: updatedTasks,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        toast.success(
+          newCompletedState ? "Task marked as complete!" : "Task marked as incomplete"
+        );
+      } else {
+        // Revert on error
+        updatedTasks[taskIndex].completed = !newCompletedState;
+        setTasks(updatedTasks);
+        toast.error("Failed to update task status");
+      }
+    } catch (error) {
+      // Revert on error
+      updatedTasks[taskIndex].completed = !newCompletedState;
+      setTasks(updatedTasks);
+      console.error("Error updating task:", error);
+      toast.error("Failed to update task status");
+    }
   };
 
   const clearFilters = () => {
-    setCategoryFilter('all');
-    setPriorityFilter('all');
-    setStatusFilter('all');
+    setPriorityFilter("all");
+    setStatusFilter("all");
   };
 
-  const completedCount = tasks.filter(t => t.completed).length;
+  const getPriorityColor = (priority: "high" | "medium" | "low") => {
+    switch (priority) {
+      case "high":
+        return "text-red-600 bg-red-50 border-red-200";
+      case "medium":
+        return "text-orange-600 bg-orange-50 border-orange-200";
+      case "low":
+        return "text-blue-600 bg-blue-50 border-blue-200";
+    }
+  };
+
+  const completedCount = tasks.filter((t) => t.completed).length;
   const totalCount = tasks.length;
 
-  if (loading) {
+  if (isPending || loading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="text-center">
-            <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-teal-600 border-t-transparent" />
+            <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-teal-600" />
             <p className="text-gray-600">Loading tasks...</p>
           </div>
         </div>
@@ -89,7 +185,7 @@ export default function TasksPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -107,7 +203,7 @@ export default function TasksPage() {
                 <Filter className="h-5 w-5" />
                 Filters
               </CardTitle>
-              {(categoryFilter !== 'all' || priorityFilter !== 'all' || statusFilter !== 'all') && (
+              {(priorityFilter !== "all" || statusFilter !== "all") && (
                 <Button variant="ghost" size="sm" onClick={clearFilters}>
                   Clear All
                 </Button>
@@ -115,24 +211,7 @@ export default function TasksPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-3">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Category</label>
-                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="legal">Legal</SelectItem>
-                    <SelectItem value="product">Product</SelectItem>
-                    <SelectItem value="marketing">Marketing</SelectItem>
-                    <SelectItem value="fundraising">Fundraising</SelectItem>
-                    <SelectItem value="operations">Operations</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
+            <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">Priority</label>
                 <Select value={priorityFilter} onValueChange={setPriorityFilter}>
@@ -168,13 +247,46 @@ export default function TasksPage() {
         {/* Task List */}
         <div className="space-y-4">
           {filteredTasks.length > 0 ? (
-            filteredTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onStatusChange={handleTaskStatusChange}
-              />
-            ))
+            filteredTasks.map((task, index) => {
+              const actualIndex = tasks.findIndex((t) => t.task === task.task);
+              return (
+                <div
+                  key={index}
+                  className={`rounded-lg border p-4 transition-all ${
+                    task.completed ? "bg-gray-50" : "bg-white"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <Checkbox
+                      id={`task-${index}`}
+                      checked={task.completed}
+                      onCheckedChange={() => handleTaskToggle(actualIndex)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <label
+                        htmlFor={`task-${index}`}
+                        className={`cursor-pointer text-base font-medium ${
+                          task.completed ? "text-gray-500 line-through" : "text-gray-900"
+                        }`}
+                      >
+                        {task.task}
+                      </label>
+                      <p className="mt-1 text-sm text-gray-600">{task.description}</p>
+                      <div className="mt-2">
+                        <span
+                          className={`inline-block rounded-full border px-2 py-0.5 text-xs font-medium ${getPriorityColor(
+                            task.priority
+                          )}`}
+                        >
+                          {task.priority.toUpperCase()} PRIORITY
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
           ) : (
             <Card>
               <CardContent className="py-12 text-center">
