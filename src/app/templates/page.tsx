@@ -1222,12 +1222,215 @@ export default function TemplatesPage() {
             const industry = startups[0].industry;
             setUserIndustry(industry);
             
-            // If EdTech, include EdTech templates
-            if (industry === 'edtech') {
-              const allTemplates = [...STANDARD_TEMPLATES, ...EDTECH_TEMPLATES];
-              setAvailableTemplates(allTemplates);
-              setFilteredTemplates(allTemplates);
+            // Determine which templates to include based on industry
+            let allTemplates = [...STANDARD_TEMPLATES];
+            
+            if (industry?.toLowerCase().includes('edtech') || industry?.toLowerCase().includes('education')) {
+              allTemplates = [...allTemplates, ...EDTECH_TEMPLATES];
             }
+            
+            if (industry?.toLowerCase().includes('agri')) {
+              // Add AgriTech-specific templates
+              const agriTechTemplates: Template[] = [
+                {
+                  id: 'agritech-farmer-agreement',
+                  title: 'Farmer Agreement Template',
+                  description: 'Comprehensive agreement template for onboarding farmers to AgriTech platforms. Covers services, obligations, data rights, payments, liability, and termination terms.',
+                  category: 'legal',
+                  fileType: 'txt',
+                  industry: 'agritech',
+                  content: `FARMER AGREEMENT
+
+This Farmer Agreement ("Agreement") is made between:
+[Company Name], a company registered under the laws of India, having its registered office at [Address], hereinafter referred to as the "Company".
+[Farmer Name], residing at [Address], holding Farmer ID / Aadhaar No. [Number], hereinafter referred to as the "Farmer".
+
+Both parties agree as follows:
+
+1. PURPOSE
+The purpose of this Agreement is to provide the Farmer access to agricultural advisory, input marketplace services, soil analysis, farm digitisation tools, and procurement or buyback support.
+
+2. SERVICES PROVIDED BY THE COMPANY
+The Company agrees to provide:
+• Crop advisory based on soil data, satellite insights, and agronomy models.
+• Weather alerts, disease/pest warnings, and irrigation recommendations.
+• Access to certified agricultural inputs (seeds, fertilizers, pesticides).
+• Soil testing integration and analysis.
+• Market linkage, including aggregation, grading, and procurement support.
+• Digital farm record services.
+
+3. OBLIGATIONS OF THE FARMER
+The Farmer agrees to:
+• Provide accurate farm details (acreage, crop type, sowing dates, irrigation method).
+• Use inputs as per safety instructions.
+• Allow field inspections by Company/FPO teams when required.
+• Maintain honesty in reporting production and quality.
+• Not misuse the platform for fraudulent orders or resale.
+
+4. DATA RIGHTS & PRIVACY
+• Farmer owns all raw farm-level data.
+• The Company owns processed data such as analytics, insights, and models.
+• The Farmer permits the Company to use anonymised data for research, training models, and platform improvement.
+• Data handling will comply with India's DPDP Act.
+
+5. PAYMENTS & SETTLEMENT
+• Payments for all inputs must be made through UPI, NEFT, or in-app options.
+• In procurement models, payment will be made after quality assessment.
+• Payouts will be transferred to the Farmer's registered bank account.
+
+6. LIABILITY
+The Company is not responsible for:
+• Crop losses due to weather, irrigation failure, or pests.
+• Incorrect application of inputs.
+• Government policy changes affecting prices.
+
+7. TERM & TERMINATION
+• The Agreement remains valid until either party terminates it.
+• Either party may terminate with 7 days' written notice.
+• Outstanding dues must be settled before termination.
+
+8. GOVERNING LAW
+This Agreement is governed by the laws of India. Jurisdiction lies with courts in [City].
+
+SIGNATURES
+
+Farmer: ____________________________
+Company: ___________________________
+Date: ______________________________`
+                },
+                {
+                  id: 'agritech-vendor-agreement',
+                  title: 'Vendor Agreement for Input Suppliers',
+                  description: 'Agreement for agricultural input suppliers (seeds, fertilizers, pesticides, equipment) covering product standards, compliance, delivery terms, pricing, returns, and liability.',
+                  category: 'legal',
+                  fileType: 'txt',
+                  industry: 'agritech',
+                  content: `VENDOR AGREEMENT FOR INPUT SUPPLIERS
+
+This Vendor Agreement ("Agreement") is executed between:
+[Company Name], hereinafter "Company".
+[Vendor Name], having GST No. [Number], hereinafter "Vendor".
+
+1. PURPOSE
+This Agreement governs the supply of agricultural inputs (seeds, fertilizers, pesticides, equipment) to the Company for resale to farmers.
+
+2. PRODUCT STANDARDS & COMPLIANCE
+The Vendor must ensure:
+• Seeds comply with Seed Act 1966 & Seed Rules 1968.
+• Fertilizers comply with the FCO 1985.
+• Pesticides comply with Insecticides Act 1968 & CIBRC norms.
+• All products are genuine, not expired, and properly labeled.
+• Batch numbers, manufacturing dates, and expiry dates must be visible.
+
+3. SUPPLY & DELIVERY TERMS
+• Delivery time must follow agreed SLA (3–7 days).
+• Wrong or damaged shipments must be replaced within 48 hours.
+• Vendor must maintain adequate stock levels.
+• Company may conduct surprise quality audits.
+
+4. PRICING & INVOICING
+• Vendor must provide updated price lists 7 days before changes.
+• All invoices must be GST compliant.
+• Special discounts for bulk orders must be mutually agreed.
+
+5. RETURNS & REPLACEMENTS
+The Company may return or request replacement for:
+• Defective or expired items
+• Incorrect product deliveries
+• Batches with repeated farmer complaints
+
+6. LIABILITY
+The Vendor is liable for:
+• Losses caused by substandard or counterfeit inputs.
+• Legal issues arising from regulatory non-compliance.
+• Crop loss claims proven to be caused by defective inputs.
+
+7. PAYMENT TERMS
+• Payment cycle: 15–45 days depending on product category.
+• Payments for disputed batches may be withheld.
+• Penalties apply for SLA violations.
+
+8. CONFIDENTIALITY
+Vendor must keep all business, pricing, and operational details confidential.
+
+9. TERMINATION
+Either party may terminate with 10 days' notice.
+
+SIGNATURES
+
+Vendor: ____________________________
+Company: ___________________________
+Date: ______________________________`
+                },
+                {
+                  id: 'agritech-fpo-mou',
+                  title: 'FPO Partnership MoU',
+                  description: 'Memorandum of Understanding for partnerships with Farmer Producer Organizations. Covers collaboration objectives, roles, data sharing, financial terms, monitoring, and legal framework.',
+                  category: 'legal',
+                  fileType: 'txt',
+                  industry: 'agritech',
+                  content: `FPO PARTNERSHIP MoU
+
+This Memorandum of Understanding ("MoU") is entered into by:
+[Company Name], hereinafter "Company"
+[FPO Name], Registration No. [Number], hereinafter "FPO"
+
+1. OBJECTIVE
+To collaborate for improving access to inputs, advisory, procurement, digital training, and market linkage for FPO members.
+
+2. ROLES & RESPONSIBILITIES
+
+Company Responsibilities:
+• Onboard FPO and members onto the digital platform.
+• Provide advisory and weather alerts.
+• Provide access to input marketplace.
+• Facilitate market linkage with buyers/processors.
+• Conduct training sessions for FPO staff.
+• Assist in quality grading and aggregation.
+
+FPO Responsibilities:
+• Share verified member data.
+• Coordinate training and onboarding activities.
+• Provide storage/warehouse support for procurement.
+• Facilitate produce aggregation and quality checks.
+• Maintain transparency in procurement and payouts.
+
+3. DATA SHARING & PRIVACY
+• Only essential data will be shared between parties.
+• All data handling will follow DPDP Act guidelines.
+• Both parties agree to protect farmer information.
+
+4. FINANCIAL TERMS
+• Commission or margin structure outlined in Schedule A.
+• Discounts or incentives may be provided for bulk purchases.
+
+5. MONITORING & REPORTING
+• Monthly performance reviews.
+• Quarterly dashboards for procurement, advisory usage, and training.
+• Dispute resolution through a joint committee.
+
+6. TERM & TERMINATION
+• MoU validity: 12 months.
+• Either party may terminate with 15 days' written notice.
+• All dues must be settled before termination.
+
+7. LEGAL FRAMEWORK
+• Governed by Indian law.
+• Jurisdiction: Courts of [City].
+
+SIGNATURES
+
+FPO: ____________________________
+Company: ___________________________
+Date: ______________________________`
+                }
+              ];
+              
+              allTemplates = [...allTemplates, ...agriTechTemplates];
+            }
+            
+            setAvailableTemplates(allTemplates);
+            setFilteredTemplates(allTemplates);
           }
         }
       } catch (error) {
@@ -1271,25 +1474,29 @@ export default function TemplatesPage() {
     );
   }
 
+  const hasEdTechTemplates = userIndustry?.toLowerCase().includes('edtech') || userIndustry?.toLowerCase().includes('education');
+  const hasAgriTechTemplates = userIndustry?.toLowerCase().includes('agri');
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50">
       <Header />
       
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Header */}
+      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <div className="mb-4 flex justify-center md:justify-start">
-            <FileText className="h-12 w-12 text-green-600" />
-          </div>
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">Template Library</h1>
-          <p className="text-gray-600">
-            Download ready-to-use legal and business document templates
+          <h1 className="mb-4 text-4xl font-bold text-gray-900">Template Library</h1>
+          <p className="text-lg text-gray-600">
+            Ready-to-use legal documents and templates for your startup journey.
+            {hasEdTechTemplates && (
+              <span className="ml-2 inline-block rounded-md bg-purple-100 px-3 py-1 text-sm font-medium text-purple-700">
+                ✨ Special EdTech templates are now available for your startup
+              </span>
+            )}
+            {hasAgriTechTemplates && (
+              <span className="ml-2 inline-block rounded-md bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+                ✨ Special AgriTech templates are now available for your startup
+              </span>
+            )}
           </p>
-          {userIndustry === 'edtech' && (
-            <p className="mt-2 text-sm text-teal-600 font-medium">
-              ✨ Special EdTech templates are now available for your startup
-            </p>
-          )}
         </div>
 
         {/* Search & Filter */}
