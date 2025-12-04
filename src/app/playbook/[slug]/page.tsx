@@ -8,7 +8,6 @@ import Header from '@/components/Header';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { getPlaybookArticle } from '@/lib/mockApi';
 import { PlaybookArticle } from '@/lib/types';
 
 export default function PlaybookArticlePage() {
@@ -20,7 +19,11 @@ export default function PlaybookArticlePage() {
   useEffect(() => {
     const loadArticle = async () => {
       const slug = params.slug as string;
-      const articleData = await getPlaybookArticle(slug);
+      
+      // Fetch from static JSON file
+      const response = await fetch('/sampleData.json');
+      const data = await response.json();
+      const articleData = data.playbook.find((a: PlaybookArticle) => a.slug === slug);
       
       if (!articleData) {
         router.push('/playbook');

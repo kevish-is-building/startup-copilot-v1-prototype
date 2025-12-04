@@ -6,8 +6,6 @@ import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { fetchMockData } from '@/lib/mockApi';
-import { saveCustomRules, getCustomRules } from '@/lib/localStorage';
 import { useToast } from '@/hooks/use-toast';
 
 export default function AdminPage() {
@@ -19,13 +17,14 @@ export default function AdminPage() {
   useEffect(() => {
     const loadRules = async () => {
       // Check for custom rules first
-      const customRules = getCustomRules();
+      const customRules = localStorage.getItem('startup_copilot_custom_rules');
       
       if (customRules) {
-        setRulesJson(JSON.stringify(customRules, null, 2));
+        setRulesJson(customRules);
       } else {
-        // Load default rules
-        const data = await fetchMockData();
+        // Load default rules from static file
+        const response = await fetch('/sampleData.json');
+        const data = await response.json();
         setRulesJson(JSON.stringify(data.blueprintRules, null, 2));
       }
       
@@ -47,7 +46,7 @@ export default function AdminPage() {
       }
 
       // Save to localStorage
-      saveCustomRules(parsed);
+      localStorage.setItem('startup_copilot_custom_rules', rulesJson);
       
       toast({
         title: 'Rules Saved',
@@ -65,7 +64,8 @@ export default function AdminPage() {
   };
 
   const resetToDefaults = async () => {
-    const data = await fetchMockData();
+    const response = await fetch('/sampleData.json');
+    const data = await response.json();
     setRulesJson(JSON.stringify(data.blueprintRules, null, 2));
     localStorage.removeItem('startup_copilot_custom_rules');
     setError('');

@@ -5,7 +5,6 @@ import { Template } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { generateTemplateFile } from '@/lib/mockApi';
 
 interface TemplateCardProps {
   template: Template;
@@ -13,10 +12,13 @@ interface TemplateCardProps {
 
 export default function TemplateCard({ template }: TemplateCardProps) {
   const handleDownload = () => {
-    const fileUrl = generateTemplateFile(template);
+    // Generate a text file with the template content
+    const blob = new Blob([template.content], { type: 'text/plain' });
+    const fileUrl = URL.createObjectURL(blob);
+    
     const link = document.createElement('a');
     link.href = fileUrl;
-    link.download = `${template.title.replace(/\s+/g, '_')}.${template.fileType}`;
+    link.download = `${template.title.replace(/\s+/g, '_')}.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -47,7 +49,7 @@ export default function TemplateCard({ template }: TemplateCardProps) {
           className="w-full gap-2 bg-teal-600 hover:bg-teal-700"
         >
           <Download className="h-4 w-4" />
-          Download {template.fileType.toUpperCase()}
+          Download TXT
         </Button>
       </CardFooter>
     </Card>

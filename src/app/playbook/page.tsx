@@ -7,7 +7,6 @@ import PlaybookCard from '@/components/PlaybookCard';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { getPlaybookArticles } from '@/lib/mockApi';
 import { PlaybookArticle } from '@/lib/types';
 
 export default function PlaybookPage() {
@@ -19,9 +18,11 @@ export default function PlaybookPage() {
 
   useEffect(() => {
     const loadData = async () => {
-      const articleData = await getPlaybookArticles();
-      setArticles(articleData);
-      setFilteredArticles(articleData);
+      // Fetch from static JSON file
+      const response = await fetch('/sampleData.json');
+      const data = await response.json();
+      setArticles(data.playbook);
+      setFilteredArticles(data.playbook);
       setLoading(false);
     };
 
