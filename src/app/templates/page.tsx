@@ -9,47 +9,878 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Template } from '@/lib/types';
 
-// Static templates data for demonstration
+// Static templates data - Standard legal templates provided to all users
 const TEMPLATES: Template[] = [
   {
-    id: "template-1",
-    title: "Certificate of Incorporation",
-    description: "Standard Delaware C-Corp formation document template",
+    id: "template-cofounders",
+    title: "Co-Founders Agreement",
+    description: "Comprehensive co-founders agreement with equity split, vesting schedule, roles, compensation, and exit provisions",
     category: "legal",
     fileType: "docx",
-    content: "CERTIFICATE OF INCORPORATION\nOF\n[COMPANY NAME], INC.\n\nThe undersigned, in order to form a corporation for the purposes hereinafter stated, under and pursuant to the provisions of the General Corporation Law of the State of Delaware, does hereby certify:\n\nFIRST: The name of the corporation is [COMPANY NAME], Inc.\n\nSECOND: The address of the registered office of the corporation in the State of Delaware is [ADDRESS], and the name of its registered agent at such address is [AGENT NAME].\n\nTHIRD: The purpose of the corporation is to engage in any lawful act or activity for which corporations may be organized under the General Corporation Law of Delaware.\n\nFOURTH: The total number of shares of stock which the corporation shall have authority to issue is [NUMBER] shares of Common Stock, each with a par value of $0.0001 per share.\n\nFIFTH: The name and mailing address of the incorporator is:\n[INCORPORATOR NAME]\n[INCORPORATOR ADDRESS]\n\nSIXTH: The corporation is to have perpetual existence.\n\nIN WITNESS WHEREOF, the undersigned has executed this Certificate of Incorporation this [DAY] day of [MONTH], [YEAR].\n\n_______________________\n[INCORPORATOR NAME]\nIncorporator"
+    content: `CO-FOUNDERS AGREEMENT
+
+Date: [_______________]
+
+BETWEEN:
+[CO-FOUNDER 1 NAME], residing at [ADDRESS]
+[CO-FOUNDER 2 NAME], residing at [ADDRESS]
+[CO-FOUNDER 3 NAME] (if applicable), residing at [ADDRESS]
+
+1. COMPANY OVERVIEW
+Company Name: [_______________]
+Business Description: [_______________]
+Objective: [_______________]
+Incorporation as: [_______________]
+Business Model: [B2B/B2C/Other: _______________]
+
+2. EQUITY OWNERSHIP
+Founder          Equity Stake    Shares    Vesting Terms
+Founder 1        _____ %        [___]     [specify]
+Founder 2        _____ %        [___]     [specify]
+Founder 3        _____ %        [___]     [specify]
+TOTAL            100%
+
+Capital Contribution:
+Founder          Cash           In-Kind    Total
+Founder 1        ₹ _____        [___]      ₹ _____
+Founder 2        ₹ _____        [___]      ₹ _____
+Founder 3        ₹ _____        [___]      ₹ _____
+
+Deadline: [_______________]
+
+3. EQUITY VESTING
+Vesting Period: 4 years
+Cliff: 1 year
+Schedule: Monthly/Quarterly/Annual
+Monthly Rate: 1/48 of total (if 4-year)
+
+Breakdown:
+- Year 1: 0% (Cliff)
+- Year 2: 25%
+- Year 3: 50%
+- Year 4: 100%
+
+Acceleration:
+- Full acceleration on: [IPO/Acquisition/Other]
+- Single-trigger: [conditions]
+- Double-trigger: [conditions]
+
+Unvested Equity:
+- Early departure: Forfeited to company
+- Vested shares: Founder keeps (buy-back option may apply)
+- Buy-back price: [Fair market value/Formula]
+
+4. FOUNDER ROLES
+Founder    Title           Responsibilities    Authority
+Founder 1  [CEO/CTO/CFO]  [duties]           [scope]
+Founder 2  [CEO/CTO/CFO]  [duties]           [scope]
+Founder 3  [CEO/CTO/CFO]  [duties]           [scope]
+
+Flexibility:
+- Roles change with unanimous consent
+- Can take additional responsibilities
+- Compensation tied to roles
+
+5. TIME COMMITMENT & EXCLUSIVITY
+Commitment:
+- [Full-time/Part-time]
+- Minimum: 40+ hours/week
+- Focus: Primarily on company
+
+Non-Compete:
+- Duration: [___] months post-departure
+- Cannot engage in competing business
+- Cannot accept external employment without consent
+
+Outside Activities:
+- Teaching, writing allowed with approval
+- Cannot consume >10% of time
+- Must disclose outside income
+
+6. COMPENSATION
+Founder    Salary      Equity    Bonus    Total
+Founder 1  ₹ [__]     [_]%      [__]     ₹ [__]
+Founder 2  ₹ [__]     [_]%      [__]     ₹ [__]
+Founder 3  ₹ [__]     [_]%      [__]     ₹ [__]
+
+Salary:
+- Annual: ₹ [_______________]
+- Frequency: Monthly
+- Reviews: [Annually/As per performance]
+- Adjustment: [By consent/CEO decision]
+
+Benefits:
+- [ ] Health Insurance
+- [ ] Provident Fund
+- [ ] Other: [specify]
+
+Bonus:
+- Criteria: [specify]
+- Determined by: [Board/CEO/Metrics]
+- Distribution: [Quarterly/Annual]
+
+7. DECISION-MAKING
+Decision              Authority        Voting
+Daily operations      Individual       Single
+Hiring/Firing        [CEO/Board]      [Single/Unanimous]
+Salaries >₹5L        [Board/All]      Unanimous
+Major contracts      [CEO/Board]      CEO approval
+Equity grants        [Board/Founders] [specify]
+Fundraising          [Board/All]      Unanimous
+Dissolution          [Board/All]      Unanimous
+
+Board:
+- Members: [Founders 1, 2, 3]
+- Meetings: [Monthly/Quarterly]
+- Decisions: [Majority/Unanimous]
+
+Founder Meetings:
+- Frequency: [Monthly/Quarterly]
+- Notice: 5 business days
+- Quorum: [50%+1/All]
+- Decisions: [Unanimous/Majority]
+
+8. INTELLECTUAL PROPERTY
+IP Created During Work:
+- Belongs to COMPANY (not founders)
+- Includes: Code, designs, content, processes, patents, trademarks
+- Founders must execute IP assignment documents
+
+Founder's Pre-Existing IP:
+- Founder retains ownership
+- Grants exclusive license to company (royalty-free)
+- Must be documented at formation
+
+IP Created Post-Departure:
+- Belongs to company if related to business
+- Exception: Clearly unrelated IP
+
+Disputes:
+- Resolved through arbitration
+- Company may buy out founder's IP at fair value
+
+9. CONFIDENTIALITY
+During Founder Status:
+- No disclosure of confidential info
+- Duration: [2-3 years] post-departure
+- Covers: Business plans, technology, financial data, customers, strategy
+
+Permitted Disclosures:
+- [ ] Spouse/immediate family
+- [ ] Legal advisor (attorney-client privilege)
+- [ ] Accountant/auditor
+- [ ] Required by law
+
+Breach Consequences:
+- Injunctive relief
+- Monetary damages
+- Potential equity forfeiture
+
+10. FOUNDER DEPARTURE
+Voluntary Resignation:
+- Notice: [2 weeks/1 month/3 months]
+- Vested equity: Retained
+- Unvested: Forfeited
+
+Termination for Cause:
+- Grounds: Misconduct, conviction, breach, absence, fraud
+- Process: Notice with cause, [___] days to cure
+- All equity reverted
+- Buy-back of vested: [specify]
+
+No-Fault Termination:
+- Removed by: [Board/Founder vote]
+- Notice: [30/60 days]
+- Vested: Retained
+- Unvested: Forfeited
+- Severance: [specify if any]
+
+Death/Disability:
+- Vested: Passes to estate/heirs
+- Unvested: 100% acceleration
+- Disability definition: [medical criteria]
+- Estate has [___] days to sell back
+
+11. BUY-BACK & SHARE REPURCHASE
+Company Buy-Back:
+- Option to buy shares upon departure
+- Price: [Fair value/Cap table/Formula]
+- Terms: [Lump sum/Installments]
+
+Founder Buy-Back:
+- Remaining founders may buy departing founder's shares
+- Price: [Specify]
+- Timeline: [___] days after notice
+
+Drag-Along & Tag-Along:
+- Drag-Along: If [X]% approve, all must sell
+- Tag-Along: Founders participate in investor sales
+
+12. DISPUTE RESOLUTION
+Step 1 - Direct Discussion:
+- Founders discuss directly
+- Goal: Mutual resolution
+- Document in writing
+
+Step 2 - Mediation:
+- Neutral mediator
+- Costs shared equally
+- Timeline: [___] days
+
+Step 3 - Arbitration:
+- Binding arbitration
+- Single or three-panel arbitrator
+- Governed by Arbitration Act, 1996
+- Venue: [City]
+- Award is final
+
+Deadlock Resolution:
+- Russian Roulette: Offer price X, other chooses buy or sell
+- CEO Decision: CEO breaks tie
+- Founder Vote: Third founder votes
+
+13. FUNDING & CAPITAL RAISES
+Future Funding:
+- Founders may dilute through investor funding
+- Current ownership: [specify]
+- Max acceptable dilution: [___]%
+
+Investor Rights:
+- Board seat, liquidation preferences, anti-dilution
+- Founder dilution: [specify calculation]
+- Employee pool: [___]%
+
+Pro-Rata Rights:
+- Right to participate in future rounds
+- Terms: [Same as investors/Specify]
+- If not participating, dilution accepted
+
+Valuation:
+- Current: ₹ [_______________] (pre-money)
+- Post-investment: [TBD]
+- Disputes: [Mutually agreed expert/Arbitration]
+
+14. CONFIDENTIALITY & NON-DISPARAGEMENT
+Post-Departure:
+- No negative public statements
+- No disparagement of company, investors, founders
+- Duration: [2-3 years]
+- Violation: Lawsuit/Equity forfeiture
+
+Permitted Statements:
+- Factual employment history
+- Required by law
+- Private discussions
+
+15. AMENDMENT
+• May amend ONLY with written consent of all founders
+• Effective from: [specified date]
+• Copies distributed to all
+
+SIGNATURES
+Co-Founder 1:
+Name: _________________________
+Signature: _________________________
+Date: _________________________
+
+Co-Founder 2:
+Name: _________________________
+Signature: _________________________
+Date: _________________________
+
+Co-Founder 3 (if applicable):
+Name: _________________________
+Signature: _________________________
+Date: _________________________`
   },
   {
-    id: "template-2",
-    title: "Founders' Agreement",
-    description: "Comprehensive founders agreement with equity split and vesting",
+    id: "template-partnership",
+    title: "Partnership Deed",
+    description: "Complete partnership deed with capital contribution, profit/loss sharing, roles, and dissolution terms",
     category: "legal",
     fileType: "docx",
-    content: "FOUNDERS' AGREEMENT\n\nThis Founders' Agreement (\"Agreement\") is entered into as of [DATE] by and between the undersigned founders (\"Founders\") of [COMPANY NAME], Inc. (the \"Company\").\n\n1. EQUITY ALLOCATION\nThe Founders agree to the following initial equity split:\n- [FOUNDER 1 NAME]: [PERCENTAGE]%\n- [FOUNDER 2 NAME]: [PERCENTAGE]%\n\n2. VESTING SCHEDULE\nAll founder shares shall vest over a four (4) year period with a one (1) year cliff. If a Founder's relationship with the Company terminates before the cliff date, all unvested shares shall be forfeited.\n\n3. ROLES AND RESPONSIBILITIES\n[FOUNDER 1 NAME] shall serve as [TITLE] and be responsible for [RESPONSIBILITIES]\n[FOUNDER 2 NAME] shall serve as [TITLE] and be responsible for [RESPONSIBILITIES]\n\n4. DECISION MAKING\nMajor decisions requiring unanimous consent include:\n- Raising investment or taking on debt\n- Selling the company or substantial assets\n- Hiring/firing C-level executives\n- Changing the company's core business model\n\n5. INTELLECTUAL PROPERTY\nAll Founders assign all intellectual property created in connection with the Company to the Company.\n\n6. NON-COMPETE\nDuring their involvement with the Company and for [TIME PERIOD] thereafter, Founders agree not to compete directly with the Company.\n\n7. DISPUTE RESOLUTION\nAny disputes shall be resolved through mediation, and if necessary, binding arbitration.\n\nIN WITNESS WHEREOF, the Founders have executed this Agreement as of the date first written above.\n\n_______________________  _______________________\n[FOUNDER 1 NAME]        [FOUNDER 2 NAME]"
+    content: `PARTNERSHIP DEED
+
+Date: [_______________]
+
+BETWEEN:
+[PARTNER 1 NAME], residing at [ADDRESS]
+[PARTNER 2 NAME], residing at [ADDRESS]
+[PARTNER 3 NAME] (if applicable), residing at [ADDRESS]
+
+1. PARTNERSHIP DETAILS
+Firm Name: [_______________]
+Nature of Business: [_______________]
+Principal Place: [_______________]
+Registration Date: [_______________]
+
+2. CAPITAL CONTRIBUTION
+Partner Name    Amount      Payment Details    Ownership %
+Partner 1       ₹ _____    [cash/assets]      _____ %
+Partner 2       ₹ _____    [cash/assets]      _____ %
+Partner 3       ₹ _____    [cash/assets]      _____ %
+TOTAL           ₹ _____                       100%
+
+Notes:
+- Payment deadline: [_______________]
+- No interest on capital
+- Capital is partnership property
+
+3. PROFIT & LOSS SHARING
+Partner Name    Profit Share    Loss Share
+Partner 1       _____ %        _____ %
+Partner 2       _____ %        _____ %
+Partner 3       _____ %        _____ %
+
+Distribution Frequency: [quarterly/semi-annual/annual]
+Distribution Date: [_______________]
+
+4. ROLES & RESPONSIBILITIES
+Partner    Position    Key Responsibilities
+Partner 1  [Title]     [Duties]
+Partner 2  [Title]     [Duties]
+Partner 3  [Title]     [Duties]
+
+Decision-Making:
+- Routine Decisions: Any single partner
+- Major Decisions (Unanimous Consent):
+  - Admission of new partners
+  - Change in business nature
+  - Sale/purchase of assets
+  - Borrowing beyond ₹ [_____]
+  - Salary changes
+  - Dissolution
+
+5. DRAWING ACCOUNTS
+Partner    Monthly Draw    Limit
+Partner 1  ₹ _____        [terms]
+Partner 2  ₹ _____        [terms]
+Partner 3  ₹ _____        [terms]
+
+• Excess drawings need approval
+• Deducted from profit share at year-end
+• Interest at [___]% if not adjusted
+
+6. BANKING & FINANCIAL
+Bank Account: [Bank Name], [Branch]
+Account Number: [_______________]
+Signatories: [Partner names]
+Cheque Requirements: Signed by [1/2/all]
+
+Financial Statements:
+- Prepared by: [DATE]
+- Audited by: [Auditor name]
+- Books maintained at: [Location]
+- Partners can inspect anytime
+
+GST & Taxes:
+- GST returns: [monthly/quarterly/annual]
+- Income tax: Filed by [CA name]
+- All compliance: Joint responsibility
+
+7. ADMISSION OF NEW PARTNERS
+Requirements:
+- Unanimous consent of existing partners
+- Written agreement
+- Capital contribution
+- Accept existing liabilities
+- Agree to profit ratio
+
+Capital:
+- Goodwill: ₹ [_______________]
+- Cash: ₹ [_______________]
+- Assets: [_______________]
+
+8. PARTNER RETIREMENT
+Notice: [___] months written notice
+Capital Refund: Within [___] months
+Outstanding Dues: [___] installments
+Profit Share: Included till retirement date
+
+Settlement:
+- Capital: ₹ [_______________]
+- Profits (till date): ₹ [_______________]
+- Reserves: [___]% of share
+- Goodwill: [_______________]
+
+9. EXPULSION
+Grounds:
+- Gross misconduct
+- Repeated breach
+- Unauthorized disclosure
+- Insolvency
+- Inability to contribute
+
+Process:
+- Requires [unanimous/majority] consent
+- Written notice with reasons
+- Partner gets [___] days to respond
+
+Settlement:
+- Capital: ₹ [_______________]
+- Profits/losses: [calculated]
+- Goodwill: [_______________]
+- Within [___] months
+
+10. DISSOLUTION
+Grounds:
+- Mutual agreement
+- Death of partner
+- Bankruptcy
+- Breach of conditions
+- Court order
+
+Process:
+- [___] days notice
+- Liquidate assets
+- Pay liabilities
+- Distribute remaining per ratio
+- Records maintained [___] years
+
+11. NON-COMPETE & CONFIDENTIALITY
+During Partnership:
+- No competing business
+- No disclosure of information
+- No customer solicitation
+- No independent supplier dealings
+
+Post-Dissolution:
+- Non-compete: [___] years
+- Geographic restriction: [_______________]
+- Confidentiality: Indefinite
+
+12. DISPUTE RESOLUTION
+Resolution Steps:
+1. Discussion between partners
+2. Mediation (costs shared equally)
+3. Arbitration (binding and final)
+
+Jurisdiction:
+- Governed by laws of [State]
+- Courts in [City]
+
+SIGNATURES
+Partner 1:
+Name: _________________________
+Address: _________________________
+Signature: _________________________
+Date: _________________________
+
+Partner 2:
+Name: _________________________
+Address: _________________________
+Signature: _________________________
+Date: _________________________
+
+Partner 3 (if applicable):
+Name: _________________________
+Address: _________________________
+Signature: _________________________
+Date: _________________________
+
+Witnesses:
+Witness 1: _________________________
+Signature: _________________________
+Date: _________________________
+
+Witness 2: _________________________
+Signature: _________________________
+Date: _________________________`
   },
   {
-    id: "template-3",
-    title: "SAFE Agreement (Simple Agreement for Future Equity)",
-    description: "Standard Y Combinator SAFE template for early-stage fundraising",
-    category: "fundraising",
-    fileType: "docx",
-    content: "SAFE (Simple Agreement for Future Equity)\n\nTHIS CERTIFIES THAT in exchange for the payment by [INVESTOR NAME] (the \"Investor\") of $[AMOUNT] (the \"Purchase Amount\") on or about [DATE], [COMPANY NAME], Inc., a Delaware corporation (the \"Company\"), issues to the Investor the right to certain shares of the Company's Capital Stock, subject to the terms described below.\n\nValuation Cap: $[AMOUNT]\nDiscount Rate: [PERCENTAGE]%\n\n1. Events\n\n(a) Equity Financing. If there is an Equity Financing before the termination of this Safe, on the initial closing of such Equity Financing, this Safe will automatically convert into the number of shares of Safe Preferred Stock equal to the Purchase Amount divided by the Conversion Price.\n\n(b) Liquidity Event. If there is a Liquidity Event before the termination of this Safe, this Safe will automatically be entitled to receive a portion of Proceeds equal to the Purchase Amount.\n\n2. Company Representations\n\n(a) The Company is a corporation duly organized, validly existing and in good standing under the laws of the State of Delaware.\n\n(b) The execution, delivery and performance by the Company of this Safe is within the power of the Company and has been duly authorized.\n\nIN WITNESS WHEREOF, the undersigned have caused this Safe to be duly executed and delivered.\n\n[COMPANY NAME], INC.\n\nBy: _______________________\nName: [FOUNDER NAME]\nTitle: CEO"
-  },
-  {
-    id: "template-4",
-    title: "Employee Offer Letter",
-    description: "Standard employment offer letter template",
+    id: "template-employment",
+    title: "Employment Contract",
+    description: "Standard employment contract with position details, compensation, benefits, confidentiality, and termination terms",
     category: "hr",
     fileType: "docx",
-    content: "EMPLOYMENT OFFER LETTER\n\n[DATE]\n\nDear [CANDIDATE NAME],\n\nWe are pleased to offer you the position of [TITLE] at [COMPANY NAME], Inc. (the \"Company\"). We believe your skills and experience will be a valuable addition to our team.\n\nPosition: [TITLE]\nStart Date: [DATE]\nSalary: $[AMOUNT] per year, paid [FREQUENCY]\nEquity: [NUMBER] stock options, subject to vesting schedule\nBenefits: [BENEFITS DESCRIPTION]\n\nReporting: You will report directly to [MANAGER NAME], [MANAGER TITLE].\n\nThis offer is contingent upon:\n- Successful completion of a background check\n- Proof of your eligibility to work in the United States\n- Signing the Company's standard Confidential Information and Invention Assignment Agreement\n\nYour employment with the Company will be \"at-will,\" meaning that either you or the Company may terminate the employment relationship at any time, with or without cause or notice.\n\nTo accept this offer, please sign and return this letter by [DATE].\n\nWe look forward to welcoming you to the team!\n\nSincerely,\n\n_______________________\n[FOUNDER NAME]\n[TITLE]"
+    content: `EMPLOYMENT CONTRACT
+
+Date: [_______________]
+
+BETWEEN:
+[COMPANY NAME], registered at [ADDRESS] ("Employer")
+
+AND:
+[EMPLOYEE NAME], residing at [ADDRESS] ("Employee")
+
+1. POSITION & RESPONSIBILITIES
+Job Title: [_______________]
+Department: [_______________]
+Reporting To: [_______________]
+Location: [_______________]
+
+Responsibilities:
+- [List key duties]
+- [Performance metrics]
+- [Strategic objectives]
+
+2. EMPLOYMENT TERMS
+Employment Type: [ ] Full-time [ ] Part-time [ ] Contract
+Probation Period: [___] months
+Start Date: [_______________]
+Status: At-will employment
+
+3. COMPENSATION
+Monthly Salary: ₹ [_______________]
+Variable Bonus: ₹ [_______________]
+Payment Frequency: Monthly on [date]
+Payment Mode: Bank transfer
+
+Benefits Include:
+- [ ] Health Insurance
+- [ ] Life Insurance
+- [ ] Provident Fund (EPF)
+- [ ] Gratuity
+- [ ] Leave Travel Allowance
+- [ ] Other: [specify]
+
+4. WORK HOURS & LEAVE
+Weekly Hours: 40-50 hours
+Daily Timing: [_____] AM to [_____] PM
+Lunch Break: [_____] minutes
+
+Leave Entitlements (Per Year):
+- Casual Leave: [___] days
+- Sick Leave: [___] days
+- Earned Leave: [___] days
+- Paid Leave: [___] days
+- National Holidays: As per notification
+
+5. CONFIDENTIALITY & NON-COMPETE
+Confidentiality Obligation:
+- Duration: 2 years after termination
+- Covers: Business strategies, financial data, user data, code, designs
+- Applies to: Customer lists, pricing, technology, methods
+
+Non-Compete Clause:
+- Duration: 12 months after termination
+- Geographic scope: [_______________]
+- Exception: With written Company approval
+
+Intellectual Property Assignment:
+- All IP created during employment belongs to Company
+- Employee shall execute IP assignment documents
+
+6. GROUNDS FOR TERMINATION
+Termination by Company (With Cause):
+- Gross misconduct or breach of policies
+- Repeated negligence or underperformance
+- Unauthorized disclosure of confidential information
+- Criminal conviction
+- Dishonesty or fraud
+
+Termination by Company (Without Cause):
+- As per statutory requirements
+- Severance pay: [specify]
+
+Termination by Employee:
+- Written notice of [___] days
+- Continue working during notice period
+
+7. NOTICE PERIOD & SETTLEMENT
+Notice Period: [___] days
+
+Final Settlement includes:
+- Pending salary
+- Pro-rata benefits
+- Leave encashment
+- Gratuity
+- Full settlement within [___] days
+
+8. CODE OF CONDUCT
+Employee agrees to:
+- Maintain professional behavior
+- Follow Company's Code of Conduct
+- Comply with all applicable laws
+- Report violations
+- Maintain workplace safety
+- Respect diversity
+- Maintain punctuality
+- Protect Company assets
+
+9. PERFORMANCE & PROBATION
+Probation Period: [___] months
+
+During Probation:
+- Regular performance evaluation
+- Company may terminate without notice
+- May be extended by [___] months
+- Completion depends on satisfactory performance
+
+10. AMENDMENT & CHANGES
+• Company may amend with [___] days written notice
+• Changes communicated via email/handbook
+• Continued employment implies acceptance
+• Statutory compliance supersedes
+
+SIGNATURES
+For Company:
+Company Name: _________________________
+Authorized Signatory: _________________________
+Signature: _________________________
+Date: _________________________
+
+For Employee:
+Employee Name: _________________________
+Signature: _________________________
+Date: _________________________
+
+Witness:
+Witness Name: _________________________
+Signature: _________________________
+Date: _________________________`
   },
   {
-    id: "template-5",
-    title: "NDA (Non-Disclosure Agreement)",
-    description: "Mutual non-disclosure agreement for business discussions",
+    id: "template-nda",
+    title: "Non-Disclosure Agreement (NDA)",
+    description: "Comprehensive mutual NDA protecting confidential business information with clear obligations and remedies",
     category: "legal",
     fileType: "docx",
-    content: "MUTUAL NON-DISCLOSURE AGREEMENT\n\nThis Mutual Non-Disclosure Agreement (\"Agreement\") is entered into as of [DATE] by and between [COMPANY NAME], Inc. (\"Company\") and [OTHER PARTY NAME] (\"Recipient\").\n\n1. DEFINITION OF CONFIDENTIAL INFORMATION\n\"Confidential Information\" means any information disclosed by one party to the other party, either directly or indirectly, in writing, orally or by inspection of tangible objects.\n\n2. NON-USE AND NON-DISCLOSURE\nRecipient agrees:\n(a) Not to use Confidential Information for any purpose except to evaluate and engage in discussions concerning a potential business relationship between the parties.\n(b) Not to disclose Confidential Information to third parties without the prior written consent of the disclosing party.\n\n3. EXCEPTIONS\nConfidential Information shall not include information that:\n(a) Is or becomes publicly available without breach of this Agreement\n(b) Was rightfully in Recipient's possession prior to disclosure\n(c) Is independently developed by Recipient without use of Confidential Information\n\n4. TERM\nThis Agreement shall remain in effect for [TIME PERIOD] from the date of disclosure.\n\nIN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above.\n\n[COMPANY NAME], INC.          [OTHER PARTY NAME]\n\nBy: _______________________   By: _______________________"
+    content: `NON-DISCLOSURE AGREEMENT
+
+Date: [_______________]
+
+BETWEEN:
+[COMPANY NAME], registered at [ADDRESS] ("Company")
+
+AND:
+[RECIPIENT NAME], residing at [ADDRESS] ("Recipient")
+
+1. PURPOSE
+The Parties wish to share confidential information relating to:
+- Product development and innovation
+- Business strategy and operations
+- User data and analytics
+- Financial information
+- Technology and code
+- Product designs
+- Educational content
+- Internal processes
+
+2. DEFINITION OF CONFIDENTIAL INFORMATION
+• Business plans and strategies
+• User data and customer lists
+• Financial data and projections
+• Source code and algorithms
+• Product designs and specifications
+• Internal processes and documentation
+• Any information marked as "Confidential"
+• Trade secrets and intellectual property
+
+3. EXCLUSIONS
+Information is NOT confidential if it:
+- Was already public at time of disclosure
+- Becomes public without breach
+- Was independently known to Recipient
+- Rightfully received from third party
+- Must be disclosed by law
+
+4. OBLIGATIONS OF RECIPIENT
+• Not disclose information to third parties without written consent
+• Use information only for stated Purpose
+• Protect information with reasonable care
+• Limit access to employees who need-to-know
+• Report immediately any unauthorized use
+• Implement security measures
+
+5. NO LICENSE GRANTED
+This Agreement does NOT grant:
+- Any license to Company's Intellectual Property
+- Any ownership rights
+- Rights to reproduce or modify
+- Authorization to use beyond stated Purpose
+
+6. TERM & DURATION
+• Confidentiality obligations commence on signing date
+• Obligations continue for 3 years
+• Obligations survive termination of business relationship
+
+7. RETURN OR DESTRUCTION
+Upon request, Recipient shall:
+- Return all Confidential Information, OR
+- Permanently destroy all information
+- Provide written certification within 15 days
+- Retain only one copy if required by law
+
+8. REMEDIES FOR BREACH
+Company entitled to:
+- Injunctive Relief
+- Monetary Damages
+- Termination of collaboration
+- Recovery of legal costs
+
+9. GOVERNING LAW
+• Governed by laws of India
+• Jurisdiction: Delhi courts
+• Disputes resolved through arbitration or litigation
+
+SIGNATURES
+Company:
+Company Name: _________________________
+Representative: _________________________
+Signature: _________________________
+Date: _________________________
+
+Recipient:
+Name: _________________________
+Signature: _________________________
+Date: _________________________`
+  },
+  {
+    id: "template-checklists",
+    title: "Legal Document Checklists",
+    description: "Comprehensive checklists for reviewing and signing various legal documents including NDAs, employment contracts, partnerships, and co-founder agreements",
+    category: "legal",
+    fileType: "docx",
+    content: `LEGAL DOCUMENT CHECKLISTS
+
+Before Signing Any Document
+☐ Read entire document
+☐ Understand all sections
+☐ Fill ALL blanks completely
+☐ No spelling errors
+☐ All names and details correct
+☐ Dates are clear
+☐ All terms understood
+☐ Consult lawyer (recommended)
+☐ Witnesses present
+☐ All signatures clear
+☐ Make copies
+☐ Store safely
+
+For NDA
+☐ Clear Purpose
+☐ Confidential Info listed
+☐ 3-year term specified
+☐ Remedies included
+☐ Both parties signed
+
+For Employment
+☐ Title and duties clear
+☐ Salary definite
+☐ Leave specified
+☐ Confidentiality included
+☐ Non-compete included
+☐ Termination grounds listed
+☐ Both signed
+
+For Partnership
+☐ All partner names
+☐ Capital amounts specified
+☐ Profit ratio decided
+☐ Roles clear
+☐ Decision authority set
+☐ All partners signed
+
+For Co-Founders
+☐ All founder names
+☐ Equity % decided
+☐ Vesting schedule clear
+☐ Roles listed
+☐ Time commitment set
+☐ Compensation decided
+☐ Exit provisions noted
+☐ All founders signed
+
+DOCUMENT REVIEW TIPS
+
+1. Review Timing
+- Never sign under pressure
+- Take 24-48 hours to review
+- Read when well-rested and focused
+- Review multiple times if complex
+
+2. Understanding Terms
+- Look up unfamiliar legal terms
+- Ask questions about unclear sections
+- Get explanations in writing
+- Confirm your interpretation matches intent
+
+3. Professional Review
+- Consult with attorney for major agreements
+- Get accountant input on financial terms
+- Industry expert review for technical terms
+- HR professional for employment matters
+
+4. Common Red Flags
+- Blank spaces or incomplete sections
+- Vague or ambiguous language
+- One-sided terms favoring other party
+- Unreasonable restrictions or obligations
+- Missing termination or exit clauses
+- Excessive liability or penalties
+
+5. Before Signing
+- Verify all parties are correct
+- Confirm all attachments are included
+- Check dates are current and correct
+- Ensure witnesses are present if required
+- Make copies for all parties
+- Store original safely
+
+6. After Signing
+- Keep original in secure location
+- Create digital backup copy
+- Calendar important dates (renewals, deadlines)
+- Share copy with relevant parties
+- Review periodically for compliance
+- Update if circumstances change
+
+SPECIFIC DOCUMENT GUIDELINES
+
+Co-Founders Agreement:
+- Define equity split clearly
+- Include vesting schedule
+- Specify decision-making authority
+- Address IP ownership
+- Plan for founder departure
+- Include dispute resolution
+
+Partnership Deed:
+- Document capital contributions
+- Clarify profit/loss sharing
+- Define each partner's role
+- Establish decision-making process
+- Plan for admission/exit of partners
+- Address dissolution terms
+
+Employment Contract:
+- Verify position and responsibilities
+- Confirm compensation and benefits
+- Understand termination conditions
+- Review non-compete terms
+- Check IP assignment clauses
+- Clarify notice period
+
+Non-Disclosure Agreement:
+- Define what is confidential
+- Understand duration of obligations
+- Know permitted disclosures
+- Clarify return/destruction terms
+- Understand breach consequences
+- Check applicable law
+
+CONTACT INFORMATION FOR REVIEW
+
+Legal Review:
+Attorney Name: _________________________
+Phone: _________________________
+Email: _________________________
+
+Financial Review:
+Accountant Name: _________________________
+Phone: _________________________
+Email: _________________________
+
+HR Review:
+HR Consultant: _________________________
+Phone: _________________________
+Email: _________________________
+
+Emergency Contacts:
+Arbitrator/Mediator: _________________________
+Phone: _________________________
+Email: _________________________`
   }
 ];
 
