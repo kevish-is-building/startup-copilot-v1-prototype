@@ -1,22 +1,24 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { FileText, Search } from 'lucide-react';
+import { FileText, Search, Loader2 } from 'lucide-react';
 import Header from '@/components/Header';
 import TemplateCard from '@/components/TemplateCard';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Template } from '@/lib/types';
+import { useSession } from '@/lib/auth-client';
 
 // Static templates data - Standard legal templates provided to all users
-const TEMPLATES: Template[] = [
+const STANDARD_TEMPLATES: Template[] = [
   {
     id: "template-cofounders",
     title: "Co-Founders Agreement",
     description: "Comprehensive co-founders agreement with equity split, vesting schedule, roles, compensation, and exit provisions",
     category: "legal",
     fileType: "docx",
+    industry: "all",
     content: `CO-FOUNDERS AGREEMENT
 
 Date: [_______________]
@@ -884,14 +886,363 @@ Email: _________________________`
   }
 ];
 
+// EdTech-specific templates - Only shown to EdTech startups
+const EDTECH_TEMPLATES: Template[] = [
+  {
+    id: "template-edtech-tos",
+    title: "Terms of Service (EdTech)",
+    description: "Comprehensive Terms of Service specifically designed for EdTech platforms, covering user eligibility, platform usage, payments, content ownership, and educational service provisions",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `TERMS OF SERVICE (TOS)
+
+Last Updated: [Date]
+
+1. Introduction
+Welcome to [Company Name]. By creating an account or using our platform, you agree to these Terms of Service.
+
+2. Eligibility
+Users under 18 must use the platform under parental or guardian supervision.
+
+3. Account Responsibilities
+Provide accurate information.
+Keep credentials confidential.
+You are responsible for all activity under your account.
+
+4. Use of the Platform
+You agree not to:
+Attempt to reverse-engineer the platform.
+Upload harmful, abusive, or unlawful content.
+Disrupt classes, assessments, or learning features.
+
+5. Payments
+All fees are listed on the website or app.
+Non-payment may result in suspended access.
+Refunds follow our Refund Policy.
+
+6. Content Ownership
+We own all platform materials unless stated otherwise. Instructors grant us rights to host their content.
+
+7. Termination
+We may suspend or terminate accounts violating these terms.
+
+8. Limitation of Liability
+The platform is provided "as is." We are not liable for academic outcomes or loss of data.
+
+9. Governing Law
+These terms are governed by the laws of India.`
+  },
+  {
+    id: "template-edtech-privacy",
+    title: "Privacy Policy (EdTech)",
+    description: "EdTech-specific privacy policy addressing student data protection, learning analytics, parental consent requirements, and COPPA/FERPA compliance considerations",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `PRIVACY POLICY
+
+Last Updated: [Date]
+
+1. Data We Collect
+Personal information: name, email, phone.
+Learning data: progress, assessments.
+Device and usage data.
+
+2. How We Use Data
+Improve learning recommendations.
+Provide customer support.
+Comply with legal obligations.
+
+3. Cookies
+We use cookies for analytics and personalisation.
+
+4. Children's Data
+Users under 18 require parental consent. We do not knowingly collect data from children without supervision.
+
+5. Third-Party Sharing
+We only share data with:
+Payment processors.
+Cloud hosting partners.
+Analytics providers.
+All partners must meet our data protection standards.
+
+6. Data Deletion
+You may request deletion by emailing [email].
+
+7. Security
+We follow industry-standard security safeguards.`
+  },
+  {
+    id: "template-edtech-child-safety",
+    title: "Child Safety and Protection Policy",
+    description: "Comprehensive child safety policy for EdTech platforms covering prohibited behavior, reporting mechanisms, safety measures, instructor responsibilities, and parental involvement",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `CHILD SAFETY AND PROTECTION POLICY
+
+1. Purpose
+This policy protects all minors using the platform. It outlines behavior standards, monitoring measures, reporting systems, and response procedures. The goal is to create a safe learning environment where students can participate without fear of exploitation, bullying, or exposure to harmful content.
+
+2. Scope
+This policy applies to:
+All students under 18
+Parents and guardians
+Instructors and staff
+Vendors and third-party service providers
+Any user interacting with minors on the platform
+
+3. Prohibited Behavior
+The following actions are strictly prohibited:
+Sharing personal contact information such as phone numbers, addresses, social media IDs.
+Grooming behavior, inappropriate communication or attempts to build secret relationships with minors.
+Harassment, bullying, threats, discrimination, or demeaning language.
+Sharing or requesting inappropriate images, videos, or documents.
+Attempting to move conversations outside the platform.
+Any form of abuse, exploitation, or manipulation.
+
+4. Reporting Mechanisms
+Users may report any suspicious or concerning behavior through:
+In-app reporting tools
+Email at [email]
+A dedicated safety helpline number (if available)
+School or institutional escalation (for integrated accounts)
+Reports may be filed anonymously.
+
+5. Review and Response Process
+All reports are acknowledged within 24 hours.
+Investigation begins within 48 hours.
+The Safety Team may temporarily restrict accounts during review.
+If a violation is confirmed, actions may include warnings, suspensions, permanent bans, or reporting to relevant authorities.
+Parents or guardians may be notified if the relevant user is a minor.
+
+6. Safety Measures
+To create a secure environment, the platform implements:
+Automated content filters that detect sensitive or harmful language.
+Manual moderation of classes, chats, and discussion boards.
+Restricted messaging features for minors.
+Verification layers for instructors and staff.
+Regular audits of communication logs.
+Flagging systems for unusual behavior patterns.
+
+7. Instructor Responsibilities
+All instructors must:
+Maintain professional communication with students.
+Use only approved communication channels.
+Avoid 1-on-1 unsupervised communication unless explicitly authorized.
+Report suspicious student behavior immediately.
+
+8. Parent and Guardian Responsibilities
+Parents agree to:
+Supervise their child's use of the platform.
+Review notifications and activity logs.
+Report concerns promptly.
+
+9. Data Protection for Minors
+Minimal data is collected from minors.
+Sensitive data is encrypted.
+No behavioral data is sold or used for advertising.
+
+10. Policy Violations
+Any individual violating this policy may face:
+Permanent account termination
+Legal action
+Notification to law enforcement`
+  },
+  {
+    id: "template-edtech-parental-consent",
+    title: "Minor Consent / Parental Consent Form",
+    description: "Parental consent form template for EdTech platforms to obtain guardian approval for minors using educational services and data collection",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `PARENTAL CONSENT FORM
+
+Minor Consent / Parental Consent Form
+
+I, [Parent/Guardian Name], consent to my child [Child Name] using the educational services provided by [Company]. I acknowledge the platform will collect learning and usage data for educational purposes.
+
+Signature: ______________________
+Date: ______________________`
+  },
+  {
+    id: "template-edtech-instructor",
+    title: "Instructor / Teacher Agreement",
+    description: "Comprehensive instructor agreement for EdTech platforms covering engagement terms, compensation, content rights, confidentiality, and termination provisions",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `INSTRUCTOR / TEACHER AGREEMENT
+
+1. Engagement
+The Instructor agrees to provide educational content and/or conduct live or pre-recorded instructional sessions for [Company]. This includes, but is not limited to:
+Developing and updating course materials (lesson plans, quizzes, assignments).
+Conducting scheduled online classes, workshops, or one-on-one sessions.
+Responding to student inquiries and providing timely feedback on assignments and assessments.
+Adhering to the pedagogical standards and quality requirements set by the Company.
+Maintaining a professional and safe learning environment, fully complying with the Child Safety and Protection Policy.
+
+2. Compensation
+Payment Terms: Compensation for services rendered, including the rate of pay (e.g., hourly, per course, or fixed salary) and the payment schedule (e.g., monthly), shall be exclusively governed by the terms outlined in Schedule A attached hereto and incorporated by reference.
+Expenses: The Company is not responsible for any expenses incurred by the Instructor unless explicitly agreed upon in writing.
+Taxes: The Instructor acknowledges that they are an independent contractor (or employee, as defined in Schedule A) and is solely responsible for all income tax, social security, and other statutory deductions related to their compensation.
+
+3. Content Rights
+License Grant: The Instructor hereby grants to the Company a worldwide, perpetual, irrevocable, non-exclusive, royalty-free, sublicensable, and transferable license to host, distribute, display, promote, modify (for technical purposes), and commercially exploit all content, materials, and intellectual property submitted by the Instructor ("Submitted Content") on the Company's platform and through any distribution channels.
+Ownership: The Instructor retains ownership of the original intellectual property in the Submitted Content, but acknowledges the Company's permanent right to use it as described above. All intellectual property created by the Instructor specifically at the Company's direction and for its exclusive use shall be considered a "work-for-hire" and shall be the sole property of the Company.
+
+4. Confidentiality
+Obligation: The Instructor agrees not to disclose, directly or indirectly, any internal company information, including but not limited to business plans, financial data, technology, source code, employee data, marketing strategies, or non-public user data, to any third party during or after the term of this Agreement.
+Duration: This confidentiality obligation shall survive the termination of this Agreement for a period of [3] years, except for trade secrets, which shall remain confidential indefinitely.
+
+5. Termination
+Termination with Notice: Either party (The Company or the Instructor) may terminate this Agreement for any reason by providing 14 days' written notice to the other party.
+Termination for Cause (Immediate): The Company may terminate this Agreement immediately upon written notice if the Instructor:
+Commits a material breach of this Agreement (e.g., violation of the Child Safety Policy or breach of Confidentiality).
+Engages in gross misconduct, fraud, or acts detrimental to the Company's reputation.
+Fails to cure a remediable performance deficiency within 7 days of receiving written notice.
+Post-Termination: Upon termination, the Instructor must immediately cease all teaching activities for the Company and promptly return all Company property, materials, and confidential information. The Company shall pay the Instructor all earned compensation up to the effective date of termination.`
+  },
+  {
+    id: "template-edtech-content-licensing",
+    title: "Content Licensing Agreement",
+    description: "Content licensing agreement template for EdTech platforms to establish terms for educational content distribution, royalties, and content ownership",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `CONTENT LICENSING AGREEMENT
+
+1. Licensed Content
+Content owner grants non-exclusive rights to distribute educational content.
+
+2. Duration
+License valid for the term listed in Schedule A.
+
+3. Royalties
+Royalties will be paid monthly as per agreed percentages.
+
+4. Content Removal
+Owner may request removal with 30 days' notice.`
+  },
+  {
+    id: "template-edtech-school-mou",
+    title: "School / Institution MoU",
+    description: "Memorandum of Understanding template for EdTech platforms partnering with schools and educational institutions, covering roles, responsibilities, data sharing, and pricing",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `SCHOOL / INSTITUTION MoU
+
+1. Objective
+Partnership to provide digital learning solutions to students of [School Name].
+
+2. Roles
+Company: onboarding, tech support, training.
+School: provide access, ensure student participation.
+
+3. Data Sharing
+Only necessary data will be shared and protected.
+
+4. Pricing
+Fees listed in Schedule A.
+
+5. Validity
+MoU valid for 12 months.`
+  },
+  {
+    id: "template-edtech-dpa",
+    title: "Data Processing Agreement (DPA)",
+    description: "Data Processing Agreement for EdTech platforms defining how third-party services process student and instructor data, with breach protocols and compliance requirements",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `DATA PROCESSING AGREEMENT (DPA)
+
+1. Purpose
+Defines how third-party services process student and instructor data.
+
+2. Responsibilities
+Processor implements technical safeguards.
+Company remains data controller.
+
+3. Breach Protocol
+Processor must notify the Company within 24 hours.`
+  },
+  {
+    id: "template-edtech-refund",
+    title: "Refund & Cancellation Policy (EdTech)",
+    description: "EdTech-specific refund and cancellation policy covering course purchases, live class batches, downloaded materials, and certification refund eligibility",
+    category: "legal",
+    fileType: "docx",
+    industry: "edtech",
+    content: `REFUND & CANCELLATION POLICY
+
+1. Refund Eligibility
+Refunds allowed within 7 days of purchase.
+Live class batches refundable only before first class.
+
+2. Non-Refundable Items
+Downloaded materials.
+Certifications.
+
+3. Process
+Users must email [email]. Refunds processed in 7 working days.`
+  }
+];
+
 export default function TemplatesPage() {
-  const [filteredTemplates, setFilteredTemplates] = useState<Template[]>(TEMPLATES);
+  const { data: session, isPending: sessionPending } = useSession();
+  const [userIndustry, setUserIndustry] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [availableTemplates, setAvailableTemplates] = useState<Template[]>(STANDARD_TEMPLATES);
+  const [filteredTemplates, setFilteredTemplates] = useState<Template[]>(STANDARD_TEMPLATES);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
 
+  // Fetch user's startup industry
+  useEffect(() => {
+    async function fetchUserIndustry() {
+      if (sessionPending || !session?.user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const token = localStorage.getItem("bearer_token");
+        const response = await fetch("/api/startups", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const startups = await response.json();
+          if (startups.length > 0) {
+            const industry = startups[0].industry;
+            setUserIndustry(industry);
+            
+            // If EdTech, include EdTech templates
+            if (industry === 'edtech') {
+              const allTemplates = [...STANDARD_TEMPLATES, ...EDTECH_TEMPLATES];
+              setAvailableTemplates(allTemplates);
+              setFilteredTemplates(allTemplates);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching startup:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUserIndustry();
+  }, [session, sessionPending]);
+
   // Update filters when search or category changes
   useEffect(() => {
-    let filtered = [...TEMPLATES];
+    let filtered = [...availableTemplates];
 
     if (categoryFilter !== 'all') {
       filtered = filtered.filter(t => t.category === categoryFilter);
@@ -905,7 +1256,20 @@ export default function TemplatesPage() {
     }
 
     setFilteredTemplates(filtered);
-  }, [searchQuery, categoryFilter]);
+  }, [searchQuery, categoryFilter, availableTemplates]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-teal-600" />
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -921,6 +1285,11 @@ export default function TemplatesPage() {
           <p className="text-gray-600">
             Download ready-to-use legal and business document templates
           </p>
+          {userIndustry === 'edtech' && (
+            <p className="mt-2 text-sm text-teal-600 font-medium">
+              ✨ Special EdTech templates are now available for your startup
+            </p>
+          )}
         </div>
 
         {/* Search & Filter */}
